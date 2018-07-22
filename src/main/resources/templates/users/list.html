@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- 引用thymeleaf命名空间 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Thymeleaf in action</title>
+</head>
+<body>
+<!-- 引入头部 -->
+<div th:replace="~{fragment/header :: header}"></div>
+<h3 th:text="${userModel.title}">waylau</h3>
+<div>
+    <a href="/users/form.html" th:href="@{/users/form}">创建用户</a>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Name</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${userModel.userList.size()} eq 0">
+        <td colspan="3">没有用户信息</td>
+    </tr>
+    <tr th:each="user : ${userModel.userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.email}"></td>
+        <td><a th:href="@{'/users/' + ${user.id}}" th:text="${user.name}"></a></td>
+    </tr>
+    </tbody>
+</table>
+<!-- 引入尾部 -->
+<div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+</html>
